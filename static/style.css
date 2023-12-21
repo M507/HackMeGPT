@@ -1,0 +1,18 @@
+.gray-textarea {
+    color: gray;
+}
+footer{
+    text-align: center;
+    /* background: black; */
+    /* color:white; */
+    background: white;
+    color:black;
+    font-size: 1em;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+  }
+  footer>p{
+    margin-top: calc(20px - 0.5em);
+    height: auto;
+  }

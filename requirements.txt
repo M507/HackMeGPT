@@ -1,0 +1,10 @@
+flask
+flask_limiter
+openai
+python-dotenv
+pymongo
+pandas
+pyarrow
+scikit-learn
+rouge_score
+langdetect
