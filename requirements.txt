@@ -6,5 +6,6 @@ pymongo
 pandas
 pyarrow
 scikit-learn
+spacy
 rouge_score
 langdetect
