@@ -22,7 +22,7 @@ PASSWORD_KEY = "key"
 MAX_LEVEL = 10
 
 # Initialize logging Config
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(filename='record.log', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Initialize the MongoDB client
