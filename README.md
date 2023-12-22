@@ -1,5 +1,7 @@
 
-# Blog: 
+![gui](./images/gui.png)
+
+[For more info about this project check this blog post](https://shellcode.blog/llm1)
 
 ```
 sudo apt install software-properties-common -y
