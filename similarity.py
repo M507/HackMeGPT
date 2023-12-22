@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Flag for the ChatGPT connection
-alive = int(os.getenv('alive'))
-debug = int(os.getenv('debug'))
+alive = int(os.getenv('HACKMEGPT_ALIVE'))
+debug = int(os.getenv('HACKMEGPT_DEBUG'))
 
 # Define constants
 COSINE_SIMILARITY_THRESHOLD = 0.7
@@ -54,7 +54,7 @@ def check_similarity_from_parquet(input_sentence):
 def check_similarity(input_string, check_type = 1):
     if check_type == 1:
         # Initialize the MongoDB client
-        client = MongoClient(os.getenv('mongodb'))  # Replace with your MongoDB connection string
+        client = MongoClient(os.getenv('MONGODB_URI'))  # Replace with your MongoDB connection string
         db = client["mydb"]
         prompts_collection = db["good_prompts"]
         prompt_list = [x['last_prompt'] for x in prompts_collection.find({})]

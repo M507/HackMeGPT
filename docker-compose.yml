@@ -1,9 +1,7 @@
-# Run the database in a container and then run app.py locally.
-# Todo: add another container for app.py 
 version: '3.9'
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     container_name: mongodb
     volumes:
       - ./mongodb_data:/data/db
@@ -11,4 +9,16 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpasswordhere
+      MONGO_INITDB_ROOT_PASSWORD: changeme
+  hackmegpt:
+    build: .
+    container_name: hackmegpt
+    ports:
+      - "8443:443"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MONGODB_URI=mongodb://root:changeme@mongodb:27017
+      - FLASK_SECRET_KEY=changeme
+      - HACKMEGPT_ALIVE=1
+      - HACKMEGPT_DEBUG=0
+      - HACKMEGPT_NETWORK_DEBUG=0

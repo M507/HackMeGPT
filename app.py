@@ -13,20 +13,21 @@ from levels import *
 from tests import *
 
 # Flag for the ChatGPT connection
-alive = int(os.getenv('alive'))
-debug = int(os.getenv('debug'))
-network_debug = int(os.getenv('network_debug'))
+alive = int(os.getenv('HACKMEGPT_ALIVE'))
+debug = int(os.getenv('HACKMEGPT_DEBUG'))
+network_debug = int(os.getenv('HACKMEGPT_NETWORK_DEBUG'))
 # alive = 0 # Don't contact ChatGPT
 
 PASSWORD_KEY = "key"
 MAX_LEVEL = 10
 
 # Initialize logging Config
-logging.basicConfig(filename='record.log', level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Initialize the MongoDB client
-client = MongoClient(os.getenv('mongodb'))  # Replace with your MongoDB connection string
+mongo_uri = os.getenv('MONGODB_URI')
+client = MongoClient(mongo_uri)  # Replace with your MongoDB connection string
 db = client["mydb"]
 collection = db["user_requests"]
 prompts_collection = db["good_prompts"]
