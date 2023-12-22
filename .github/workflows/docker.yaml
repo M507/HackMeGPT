@@ -1,4 +1,4 @@
-name: docker test
+name: Docker deployment check
 
 on:
   pull_request:
