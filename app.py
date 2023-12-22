@@ -31,8 +31,8 @@ logger = logging.getLogger(__name__)
 
 # Initialize the MongoDB client
 mongo_uri = os.getenv('MONGODB_URI')
-client = MongoClient(mongo_uri)  # Replace with your MongoDB connection string
-db = client["mydb"]
+mongo_client = MongoClient(mongo_uri)  # Replace with your MongoDB connection string
+db = mongo_client["mydb"]
 collection = db["user_requests"]
 prompts_collection = db["good_prompts"]
 
@@ -75,13 +75,13 @@ def check_prompt(prompt):
 ip_request_timestamps = {}
 
 def get_response_from_gpt(context, prompt):
-    client = OpenAI(api_key=openai_api_key)
+    openai_client = OpenAI(api_key=openai_api_key)
 
-    completion = client.chat.completions.create(model='gpt-3.5-turbo', messages=[
+    completion = openai_client.chat.completions.create(model='gpt-3.5-turbo', messages=[
         {"role": "system", "content": context},
         {"role": "user", "content": prompt}
     ])
-    response_from_gpt = completion.choices[0].message['content']
+    response_from_gpt = completion.choices[0].message.content
     logger.debug(f'Info message - response_from_gpt: {response_from_gpt}')
     return response_from_gpt
 
