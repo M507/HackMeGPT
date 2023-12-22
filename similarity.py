@@ -54,8 +54,8 @@ def check_similarity_from_parquet(input_sentence):
 def check_similarity(input_string, check_type = 1):
     if check_type == 1:
         # Initialize the MongoDB client
-        client = MongoClient(os.getenv('MONGODB_URI'))  # Replace with your MongoDB connection string
-        db = client["mydb"]
+        mongo_client = MongoClient(os.getenv('MONGODB_URI'))  # Replace with your MongoDB connection string
+        db = mongo_client["mydb"]
         prompts_collection = db["good_prompts"]
         prompt_list = [x['last_prompt'] for x in prompts_collection.find({})]
         return check_similarity_from_list(input_string, prompt_list)
