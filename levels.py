@@ -1,10 +1,6 @@
 from similarity import *
 import logging
 
-# Initialize logging Config
-logging.basicConfig(filename='tests.log', level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-
 blacklists = {}
 blacklists['human_languages'] = ["English","Spanish","Chinese","Mandarin","Hindi","Arabic","French","Russian","Portuguese","Bengali","German","Japanese","Punjabi","Javanese","Telugu","Marathi","Turkish","Korean","Tamil","Urdu","Italian","Vietnamese","Gujarati","Polish","Ukrainian","Malayalam"]
 blacklists['encodings'] = ["base64", "hex", "base 64", "url", "url encoding", "endian", "binary", "hexadecimal", "UTF-8", "UTF8", "ASCII", "UTF-16", "UTF16", "UTF-32", "UTF32", "MIME", "Quoted-Printable", "Punycode", "HTML Entities", "ROT13", "Uuencode", "XXencode", "Binary-to-text", "7-bit", "8-bit", "Base32", "Base 32", "Base58", "Base 58", "Base85", "Base 85", "Base91", "Base 91", "Base92", "Base 92", "Base128", "Base 128", "Base256", "Base 256", "Z85", "YAML", "MsgPack", "BSON", "XML", "JSON", "CBOR", "ASN.1", "Huffman Coding", "Gray Code", "Gray-Hex", "BCD (Binary-Coded Decimal)", "BCD Excess-3", "Base36", "Base 36", "Base58Check", "Base 58 Check", "Base62", "Base 62", "Base64URL", "Base64 URL", "Base58Bitcoin", "Base58 Bitcoin", "Base62FLICKR", "Base62 FLICKR", "Base64MHTML", "Base64 MHTML", "Base58Ripple", "Base58 Ripple", "Base64IMAP", "Base64 IMAP", "Base64PEM", "Base64 PEM", "Base58Flickr", "Base58 Flickr", "Base64MySQL", "Base64 MySQL", "Base58IPFS", "Base58 IPFS", "Base64RFC3548", "Base64 RFC3548", "Base85RFC1924", "Base85 RFC1924", "Base64UUID", "Base64 UUID", "Base91UnixPassword", "Base91 Unix Password", "Base64XML", "Base64 XML", "Base85Git", "Base85 Git", "Base64YAML", "Base64 YAML", "Base95Zcash", "Base95 Zcash", "Base64CSV", "Base64 CSV", "Base94SIN", "Base94 SIN", "Base64UnrealScript", "Base64 UnrealScript"]

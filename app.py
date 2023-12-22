@@ -2,17 +2,18 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 app = Flask(__name__) 
-import openai, os, warnings, time, re, html, random, argparse, logging, sys
+from openai import OpenAI
+import os, warnings, time, re, html, random, argparse, logging, sys
 from pymongo import MongoClient
 from dotenv import load_dotenv
 load_dotenv() # reads from .env
-openai.api_key = os.getenv('OPENAI_API_KEY')
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
 from levels import *
 from tests import *
 
 # Flag for the ChatGPT connection
+openai_api_key = os.getenv('OPENAI_API_KEY')
 alive = int(os.getenv('HACKMEGPT_ALIVE'))
 debug = int(os.getenv('HACKMEGPT_DEBUG'))
 network_debug = int(os.getenv('HACKMEGPT_NETWORK_DEBUG'))
@@ -22,13 +23,16 @@ PASSWORD_KEY = "key"
 MAX_LEVEL = 10
 
 # Initialize logging Config
-logging.basicConfig(filename='record.log', level=logging.DEBUG)
+if debug == 1:
+    logging.basicConfig(level=logging.DEBUG)
+else:
+    logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 # Initialize the MongoDB client
 mongo_uri = os.getenv('MONGODB_URI')
-client = MongoClient(mongo_uri)  # Replace with your MongoDB connection string
-db = client["mydb"]
+mongo_client = MongoClient(mongo_uri)  # Replace with your MongoDB connection string
+db = mongo_client["mydb"]
 collection = db["user_requests"]
 prompts_collection = db["good_prompts"]
 
@@ -71,14 +75,13 @@ def check_prompt(prompt):
 ip_request_timestamps = {}
 
 def get_response_from_gpt(context, prompt):
-    completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
+    openai_client = OpenAI(api_key=openai_api_key)
+
+    completion = openai_client.chat.completions.create(model='gpt-3.5-turbo', messages=[
         {"role": "system", "content": context},
         {"role": "user", "content": prompt}
-    ]
-    )
-    response_from_gpt = completion.choices[0].message['content']
+    ])
+    response_from_gpt = completion.choices[0].message.content
     logger.debug(f'Info message - response_from_gpt: {response_from_gpt}')
     return response_from_gpt
 
