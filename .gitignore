@@ -1,2 +1,4 @@
 mongodb_data/
 .*
+tmp.py
+other_files/
